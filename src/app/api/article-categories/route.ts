@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(response);
   } catch (error) {
     console.error('API: Get categories error:', error);
-    console.error('API: Error stack:', error.stack);
+    console.error('API: Error stack:', error instanceof Error ? error.stack : 'No stack trace available');
     
     return NextResponse.json(
       { 

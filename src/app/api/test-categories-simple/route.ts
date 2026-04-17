@@ -12,6 +12,9 @@ export async function GET() {
     
     // Get database instance
     const db = mongoose.connection.db;
+    if (!db) {
+      throw new Error('Database not connected');
+    }
     console.log('Simple Test: Database name:', db.databaseName);
     
     // Test direct collection access
@@ -36,11 +39,11 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Simple Test Error:', error);
-    console.error('Simple Test Stack:', error.stack);
+    console.error('Simple Test Stack:', error instanceof Error ? error.stack : 'No stack trace available');
     return NextResponse.json({
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',
-      stack: error.stack
+      stack: error instanceof Error ? error.stack : 'No stack trace available'
     }, { status: 500 });
   }
 }

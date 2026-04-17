@@ -9,6 +9,9 @@ export async function GET() {
     
     // Get database instance
     const db = mongoose.connection.db;
+    if (!db) {
+      throw new Error('Database not connected');
+    }
     console.log('Direct DB Test: Database name:', db.databaseName);
     
     // List all collections

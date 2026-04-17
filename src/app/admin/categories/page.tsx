@@ -75,7 +75,7 @@ export default function CategoriesPage() {
       setTotalPages(data.pagination?.pages || 1);
     } catch (error) {
       console.error('Error fetching categories:', error);
-      alert(`Error fetching categories: ${error.message}`);
+      alert(`Error fetching categories: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setLoading(false);
     }

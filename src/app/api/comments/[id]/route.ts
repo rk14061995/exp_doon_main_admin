@@ -4,11 +4,12 @@ import Comment from '@/lib/models/Comment';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await connectToDatabase();
-    const comment = await Comment.findById(params.id);
+    const comment = await Comment.findById(id);
     
     if (!comment) {
       return NextResponse.json(
@@ -29,14 +30,15 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     await connectToDatabase();
     
     const comment = await Comment.findByIdAndUpdate(
-      params.id,
+      id,
       body,
       { new: true, runValidators: true }
     );
@@ -60,11 +62,12 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await connectToDatabase();
-    const comment = await Comment.findByIdAndDelete(params.id);
+    const comment = await Comment.findByIdAndDelete(id);
     
     if (!comment) {
       return NextResponse.json(

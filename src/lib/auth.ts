@@ -22,7 +22,7 @@ export function generateToken(payload: AdminPayload): string {
   }
   
   const options: jwt.SignOptions = {
-    expiresIn: (process.env.JWT_EXPIRES_IN || '7d') as string,
+    expiresIn: (process.env.JWT_EXPIRES_IN || '7d') as jwt.SignOptions['expiresIn'],
   };
   
   return jwt.sign(payload, secret, options);

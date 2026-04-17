@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyTokenEdge } from '@/lib/edge-auth';
 
-export const runtime = 'nodejs'; // Force Node.js runtime for crypto support
-
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
